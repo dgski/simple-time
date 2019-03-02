@@ -10,7 +10,7 @@ class SimpleTime
 {
     tm t;
 
-    bool compare(const SimpleTime& other, function<bool(int,int)> func, bool caseRetVal) const
+    bool compare(const SimpleTime& other, std::function<bool(int,int)> func, bool caseRetVal) const
     {
         const tm& o = other.getTimeStruct();
 
@@ -37,8 +37,8 @@ public:
     template <class T>
     void set(T timeString, const char* fmt)
     {
-        stringstream ss {timeString};
-        ss >> get_time(&t, fmt);
+        std::stringstream ss {timeString};
+        ss >> std::get_time(&t, fmt);
     }
 
     void setNowLocal()
@@ -68,10 +68,10 @@ public:
         return t;
     }
 
-    string toString(const char* fmt) const
+    std::string toString(const char* fmt) const
     {
-        stringstream ss;
-        ss << put_time(&t, fmt);
+        std::stringstream ss;
+        ss << std::put_time(&t, fmt);
         return ss.str();
     }
 
