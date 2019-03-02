@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <sstream>
 #include <functional>
+#include <iostream>
 
 #define DEFAULT_DATETIME_FORMAT "%Y/%m/%d %H:%M:%S"
 #define DEFAULT_DATE_FORMAT "%Y/%m/%d"
@@ -10,18 +11,18 @@ class SimpleTime
 {
     tm t;
 
-    bool compare(const SimpleTime& other, std::function<bool(int,int)> func, bool caseRetVal) const
+    bool compare(const SimpleTime& other, std::function<bool(int,int)> func) const
     {
         const tm& o = other.getTimeStruct();
 
-        if(func(t.tm_year, o.tm_year))      return caseRetVal;
-        if(func(t.tm_mon, o.tm_mon))        return caseRetVal;
-        if(func(t.tm_mday, o.tm_mday))      return caseRetVal;
-        if(func(t.tm_hour, o.tm_hour))      return caseRetVal;
-        if(func(t.tm_min, o.tm_min))        return caseRetVal;
-        if(func(t.tm_sec, o.tm_sec))        return caseRetVal;
+        if(func(t.tm_year, o.tm_year))      return false;
+        if(func(t.tm_mon, o.tm_mon))        return false;
+        if(func(t.tm_mday, o.tm_mday))      return false;
+        if(func(t.tm_hour, o.tm_hour))      return false;
+        if(func(t.tm_min, o.tm_min))        return false;
+        if(func(t.tm_sec, o.tm_sec))        return false;
 
-        return !caseRetVal;
+        return true;
     }
 
 public:
@@ -85,23 +86,23 @@ public:
         return compare(other, [](auto a, auto b)
         {
             return a != b;
-        }, false);
+        });
     }
 
     bool isBefore(const SimpleTime& other) const
     {
-        return compare(other, [](auto a, auto b)
+        return compare(other, [](const auto a, const auto b)
         {
-            return a < b;
-        }, true);
+            return a > b;
+        });
     }
 
     bool isAfter(const SimpleTime& other) const
     {
-        return compare(other, [](auto a, auto b)
+        return compare(other, [](const auto a, const auto b)
         {
-            return a > b;
-        }, true);
+            return a < b;
+        });
     }
 };
 
