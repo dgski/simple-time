@@ -1,8 +1,6 @@
 #include <string>
 #include <iomanip>
 #include <sstream>
-#include <functional>
-#include <iostream>
 
 #define DEFAULT_DATETIME_FORMAT "%Y/%m/%d %H:%M:%S"
 #define DEFAULT_DATE_FORMAT "%Y/%m/%d"
