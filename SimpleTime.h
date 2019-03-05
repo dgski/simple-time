@@ -10,21 +10,6 @@
 class SimpleTime
 {
     tm t;
-
-    bool compare(const SimpleTime& other, std::function<bool(int,int)> func) const
-    {
-        const tm& o = other.getTimeStruct();
-
-        if(func(t.tm_year, o.tm_year))      return false;
-        if(func(t.tm_mon, o.tm_mon))        return false;
-        if(func(t.tm_mday, o.tm_mday))      return false;
-        if(func(t.tm_hour, o.tm_hour))      return false;
-        if(func(t.tm_min, o.tm_min))        return false;
-        if(func(t.tm_sec, o.tm_sec))        return false;
-
-        return true;
-    }
-
 public:
     SimpleTime() : t()
     {}
@@ -76,33 +61,25 @@ public:
         return ss.str();
     }
 
-    time_t toTimeT()
+    time_t toTimeT() const
     {
-        return mktime(&t);
+        tm _t = t;
+        return mktime(&_t);
     }
 
     bool isEqual(const SimpleTime& other) const
     {
-        return compare(other, [](auto a, auto b)
-        {
-            return a != b;
-        });
+        return toTimeT() == other.toTimeT();
     }
 
     bool isBefore(const SimpleTime& other) const
     {
-        return compare(other, [](const auto a, const auto b)
-        {
-            return a > b;
-        });
+        return toTimeT() < other.toTimeT();
     }
 
     bool isAfter(const SimpleTime& other) const
     {
-        return compare(other, [](const auto a, const auto b)
-        {
-            return a < b;
-        });
+        return toTimeT() > other.toTimeT();
     }
 };
 
