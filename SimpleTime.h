@@ -2,8 +2,8 @@
 #include <iomanip>
 #include <sstream>
 
-#define DEFAULT_DATETIME_FORMAT "%Y/%m/%d %H:%M:%S"
-#define DEFAULT_DATE_FORMAT "%Y/%m/%d"
+constexpr const char* DEFAULT_DATETIME_FORMAT = "%Y/%m/%d %H:%M:%S";
+constexpr const char* DEFAULT_DATE_FORMAT  = "%Y/%m/%d";
 
 class SimpleTime
 {
