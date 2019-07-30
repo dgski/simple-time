@@ -6,7 +6,7 @@ SimpleTime provides the basic essential datetime functionality:
 - Outputting a string representation using specified format.
 - Sortability.
 
-Fundamentally it is a convenient wrapper class for the various time utilies provided by **time.h**. Format string is specified with the same characters as the [get_time function](https://en.cppreference.com/w/cpp/io/manip/get_time).
+Fundamentally it is a convenient wrapper class for the various time utilities provided by **time.h**. Format string is specified with the same characters as the [get_time function](https://en.cppreference.com/w/cpp/io/manip/get_time).
 
 ## Examples
 ``` c++
